@@ -1,0 +1,16 @@
+def initVcsVersionCode() {
+    println "initialize VCS Version Code ....."
+    // 以commit数量从大到小排序
+    try {
+        gradle.ext.vcsVersion = "git rev-list --all --count".execute().text.trim().toInteger()
+    } catch (ignore) {
+        gradle.ext.vcsVersion = 1
+    }
+    println "VCS Version Code: ${gradle.ext.vcsVersion}"
+}
+
+initVcsVersionCode()
+
+include ':app'
+include ':library'
+include ':basefragment'

@@ -1,0 +1,42 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+
+        // 使用 Java8 的 Lambda 表达式
+        // https://github.com/evant/gradle-retrolambda
+        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.2'
+    minSdkVersion = 11
+    targetSdkVersion = 25
+
+    support_version = '25.3.0'
+    // https://github.com/square/leakcanary
+    retrofit_version = "2.2.0"
+    // https://github.com/square/okhttp
+    okhttp_version = "3.6.0"
+    // https://github.com/trello/RxLifecycle
+    rxLifecycle_version = '1.0'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
