@@ -17,11 +17,6 @@ import com.chenfei.contentlistfragment.util.BaseResult;
 
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -38,18 +33,6 @@ public class ListActivity extends FragmentContentActivity<ListActivity.Fragment>
 
     public static class Fragment extends BaseContentListFragment<User> {
         private final int sPageSize = 10;
-        GithubApi mApi = new Retrofit.Builder()
-                .client(new OkHttpClient.Builder()
-                        .addInterceptor(
-                                new HttpLoggingInterceptor()
-                                        .setLevel(HttpLoggingInterceptor.Level.BODY)
-                        )
-                        .build())
-                .baseUrl(GithubApi.HOST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build()
-                .create(GithubApi.class);
         private int mCurrent = -1;
 
         @Override
@@ -72,7 +55,7 @@ public class ListActivity extends FragmentContentActivity<ListActivity.Fragment>
             } else {
                 keyword = GithubApi.keywords[mCurrent];
             }
-            mApi.searchUser(keyword, page, sPageSize)
+            GithubApi.mApi.searchUser(keyword, page, sPageSize)
                     .subscribeOn(Schedulers.io())
                     .takeUntil(takeUntil)
                     .observeOn(AndroidSchedulers.mainThread())
