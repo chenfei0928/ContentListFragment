@@ -4,8 +4,8 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import rx.functions.Action1;
-import rx.functions.Actions;
+import io.reactivex.functions.Consumer;
+import io.reactivex.internal.functions.Functions;
 
 /**
  * User: ChenFei(chenfei0928@gmail.com)
@@ -15,9 +15,9 @@ import rx.functions.Actions;
 public class RxJavaUtil {
     private static final String TAG = "RxJavaUtil";
 
-    public static Action1<Throwable> onError() {
+    public static Consumer<Throwable> onError() {
         if (!BuildConfig.DEBUG)
-            return Actions.empty();
+            return Functions.emptyConsumer();
         String strings = generateTags(4);
         return throwable -> {
             if (BuildConfig.DEBUG) {

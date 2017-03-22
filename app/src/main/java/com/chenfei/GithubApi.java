@@ -2,21 +2,21 @@ package com.chenfei;
 
 import java.util.List;
 
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by MrFeng on 2017/3/22.
  */
 public interface GithubApi {
     public static final String HOST = "https://api.github.com/";
-    String[] keywords =  new String[]{
+    String[] keywords = new String[]{
             "Android",
             "Java",
             "C",
@@ -49,10 +49,10 @@ public interface GithubApi {
                     .build())
             .baseUrl(GithubApi.HOST)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(GithubApi.class);
 
     @GET("search/users")
-    Observable<NetResult<List<User>>> searchUser(@Query("q") String keyword, @Query("page") int page, @Query("per_page") int per_page);
+    Single<NetResult<List<User>>> searchUser(@Query("q") String keyword, @Query("page") int page, @Query("per_page") int per_page);
 }
