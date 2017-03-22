@@ -1,4 +1,4 @@
-package com.chenfei.contentlistfragment.util;
+package com.chenfei;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.chenfei.contentlistfragment.R;
 import com.chenfei.contentlistfragment.library.LazyLoadFragment;
-import com.chenfei.contentlistfragment.library.R;
 
 /**
  * 用于显示界面中内容填充状态的帮助View

@@ -1,10 +1,12 @@
 package com.chenfei.contentlistfragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chenfei.GithubApi;
 import com.chenfei.User;
@@ -73,6 +75,12 @@ public class MainActivity extends FragmentContentActivity<MainActivity.Fragment>
                 .create(GithubApi.class);
         private int mCurrent = -1;
 
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            mStateView.setEmptyHint(0, "Empty");
+            mStateView.setNetworkErrorHint(0, "Network Error");
+        }
 
         @Override
         protected void requestListImpl(@Nullable Integer refresh, @Nullable Integer offset, int page,

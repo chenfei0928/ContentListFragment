@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chenfei.contentlistfragment.util.ListStateView xmlns:android="http://schemas.android.com/apk/res/android"
+<View xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foreground="?android:selectableItemBackground">
-
-    <TextView
-        android:id="@+id/networkError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:drawablePadding="21dp"
-        android:gravity="center"
-        android:textColor="#c9c9c9"
-        android:textSize="14sp"/>
-
-    <TextView
-        android:id="@+id/emptyHint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:drawablePadding="21dp"
-        android:gravity="center"
-        android:textColor="#c9c9c9"
-        android:textSize="14sp"/>
-
-</com.chenfei.contentlistfragment.util.ListStateView>
+    android:foreground="?android:selectableItemBackground"/>
