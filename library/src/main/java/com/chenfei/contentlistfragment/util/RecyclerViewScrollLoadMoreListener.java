@@ -28,18 +28,19 @@ public class RecyclerViewScrollLoadMoreListener extends RecyclerView.OnScrollLis
     public @interface ListViewState {
     }
 
-    private OnRecyclerViewLoadMoreListener lis;
-    private boolean emptyAutoCall = true;
+    private final OnRecyclerViewLoadMoreListener lis;
+    private final boolean emptyAutoCall;
+    private final int pageSize;
+    private final int loadmoreOffset;
     @RecyclerViewScrollLoadMoreListener.ListViewState
     private int mState = RecyclerViewScrollLoadMoreListener.STATUS_LIST_IDLE;
 
-    public RecyclerViewScrollLoadMoreListener(boolean emptyAutoCall, OnRecyclerViewLoadMoreListener lis) {
+    public RecyclerViewScrollLoadMoreListener(boolean emptyAutoCall, int pageSize, int loadmoreOffset,
+                                              OnRecyclerViewLoadMoreListener lis) {
         this.emptyAutoCall = emptyAutoCall;
+        this.pageSize = pageSize;
+        this.loadmoreOffset = loadmoreOffset;
         this.lis = lis;
-    }
-
-    public RecyclerViewScrollLoadMoreListener(OnRecyclerViewLoadMoreListener lis) {
-        this(true, lis);
     }
 
     /**
@@ -112,7 +113,7 @@ public class RecyclerViewScrollLoadMoreListener extends RecyclerView.OnScrollLis
             if (emptyAutoCall) {
                 lis.onLoadMore(recyclerView);
             }
-        } else if (visibleItemCount > 0 && (lastVisibleItem > totalItemCount - 5) || totalItemCount < 20) {
+        } else if (visibleItemCount > 0 && (lastVisibleItem > totalItemCount - loadmoreOffset) || totalItemCount < pageSize) {
             // 如果最后一条在ListView中在最下方5行之内，或总数据不满5行，则进行加载
             lis.onLoadMore(recyclerView);
         }

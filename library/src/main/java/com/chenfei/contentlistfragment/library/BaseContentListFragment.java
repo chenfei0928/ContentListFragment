@@ -112,6 +112,16 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
     @NonNull
     protected abstract DiffUtil.Callback getDiffCallback(List<Bean> oldList, List<Bean> newList);
 
+    @Override
+    RecyclerViewScrollLoadMoreListener getLoadMoreListener() {
+        if (mLoadMoreListener == null) {
+            Config config = getConfig();
+            mLoadMoreListener = new RecyclerViewScrollLoadMoreListener(true, config.pageSize, config.whatToLoadMore,
+                    lv -> requestList(false));
+        }
+        return mLoadMoreListener;
+    }
+
     @CallSuper
     protected void onLoad(int loadedSize) {
         if (getState() == RecyclerViewScrollLoadMoreListener.STATUS_LIST_LOADMORE

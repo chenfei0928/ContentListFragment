@@ -33,8 +33,7 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.AdapterDataObserver mDataObserver;
 
-    private RecyclerViewScrollLoadMoreListener mLoadMoreListener = new RecyclerViewScrollLoadMoreListener(
-            lv -> requestList(false));
+    RecyclerViewScrollLoadMoreListener mLoadMoreListener;
 
     @Nullable
     @Override
@@ -106,6 +105,14 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
         }
     }
 
+    RecyclerViewScrollLoadMoreListener getLoadMoreListener() {
+        if (mLoadMoreListener == null) {
+            mLoadMoreListener = new RecyclerViewScrollLoadMoreListener(true, 20, getConfig().whatToLoadMore,
+                    lv -> requestList(false));
+        }
+        return mLoadMoreListener;
+    }
+
     @SuppressWarnings("unused")
     protected final RecyclerView getRecyclerView() {
         return mRecycler;
@@ -131,11 +138,11 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
 
     @RecyclerViewScrollLoadMoreListener.ListViewState
     protected final int getState() {
-        return mLoadMoreListener.getState();
+        return getLoadMoreListener().getState();
     }
 
     protected final void setState(@RecyclerViewScrollLoadMoreListener.ListViewState int state) {
-        mLoadMoreListener.setState(state);
+        getLoadMoreListener().setState(state);
         if (mRefresh != null) {
             mRefresh.setEnabled(state != RecyclerViewScrollLoadMoreListener.STATUS_LIST_LOADMORE);
         }
@@ -214,9 +221,10 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
     }
 
     protected final void regScrollLoadMore(boolean reg) {
-        getRecyclerView().removeOnScrollListener(mLoadMoreListener);
+        RecyclerViewScrollLoadMoreListener loadMoreListener = getLoadMoreListener();
+        getRecyclerView().removeOnScrollListener(loadMoreListener);
         if (reg) {
-            getRecyclerView().addOnScrollListener(mLoadMoreListener);
+            getRecyclerView().addOnScrollListener(loadMoreListener);
         }
     }
 
@@ -240,10 +248,17 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
 
     protected static class Config<T extends ContentListInternalFragment.Config> extends LazyLoadFragment.Config<T> {
         boolean enableLoadMore = true;
+        int whatToLoadMore = 5;
 
         @SuppressWarnings("unchecked")
         public final T withEnableLoadMore(boolean enableLoadMore) {
             this.enableLoadMore = enableLoadMore;
+            return (T) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public final T withWhatToLoadMore(int offset) {
+            this.whatToLoadMore = offset;
             return (T) this;
         }
     }

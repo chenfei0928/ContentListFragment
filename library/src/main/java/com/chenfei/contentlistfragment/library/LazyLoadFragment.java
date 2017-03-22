@@ -43,8 +43,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         if (mIsFirstRequest) {
             firstRequest();
             mIsFirstRequest = false;
-        } else {
-            requestList(true);
         }
     };
 

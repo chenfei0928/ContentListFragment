@@ -5,6 +5,5 @@ package com.chenfei.contentlistfragment.util;
  * Created by MrFeng on 2017/1/17.
  */
 public interface BaseResult<T> {
-    boolean requestSuccess();
     T getContent();
 }
