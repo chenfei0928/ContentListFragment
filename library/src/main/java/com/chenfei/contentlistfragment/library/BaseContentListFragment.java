@@ -245,6 +245,13 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
             return mOldList.get(oldItemPosition).equals(mNewList.get(newItemPosition));
         }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return areItemsTheSame(mOldList.get(oldItemPosition), mNewList.get(newItemPosition));
+        }
+
+        protected abstract boolean areItemsTheSame(Bean oldItem, Bean newItem);
     }
 
     protected static class Config extends ContentListInternalFragment.Config<BaseContentListFragment.Config> {
