@@ -45,10 +45,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:${rootProject.ext.support_version}"
     compile "com.android.support:support-fragment:${rootProject.ext.support_version}"
     // RxJava 响应式编程 https://github.com/ReactiveX/RxAndroid
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.7'
     // https://github.com/trello/RxLifecycle
-    compile('com.trello.rxlifecycle2:rxlifecycle-components:2.0.1') {
+    compile("com.trello:rxlifecycle-components:${rxLifecycle_version}") {
         exclude module: 'jsr305'
 //        exclude module: 'rxbinding'
     }
@@ -58,7 +58,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
     // https://github.com/square/retrofit
     compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
-    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
 
     compile 'com.github.bumptech.glide:glide:3.7.0'

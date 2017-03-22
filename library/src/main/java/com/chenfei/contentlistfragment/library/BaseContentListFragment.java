@@ -17,11 +17,10 @@ import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * 使用Fragment实现视频列表，以便于在任何场合使用本类完成视频列表页面快速开发
@@ -52,7 +51,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
      * 请求视频列表，第一次加载和刷新时传入true
      */
     @Override
-    protected final void requestListImpl(boolean isRefresh, SingleSource<Boolean> operationChangedEvent) {
+    protected final void requestListImpl(boolean isRefresh, Observable<Boolean> operationChangedEvent) {
         Integer refresh = null;
         Integer offset = null;
         int page = 1; // 服务端为php，页码1和0一个效果
@@ -90,8 +89,8 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
      * @param error     失败时的回调
      */
     protected abstract void requestListImpl(@Nullable Integer refresh, @Nullable Integer offset, int page,
-                                            SingleSource<Boolean> takeUntil, Consumer<BaseResult<List<Bean>>> success,
-                                            Consumer<Throwable> error);
+                                            Observable<Boolean> takeUntil, Action1<BaseResult<List<Bean>>> success,
+                                            Action1<Throwable> error);
 
     private RecyclerView.Adapter createAdapterInternal(List<Bean> list) {
         return createAdapter(list);
@@ -156,7 +155,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
         }
     }
 
-    private Consumer<BaseResult<List<Bean>>> success = baseListResultNetResult -> {
+    private Action1<BaseResult<List<Bean>>> success = baseListResultNetResult -> {
         RecyclerView.Adapter adapter = getAdapter();
         final boolean isFirstLoad = adapter == null;
         if (isFirstLoad) {
@@ -210,7 +209,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
                 onLoad(contentList.size());
             } else {
                 // 非首次加载且需要刷新时移除旧数据，计算集合变化
-                Single.fromCallable(() -> DiffUtil.calculateDiff(getDiffCallback(mList, contentList), true))
+                Observable.fromCallable(() -> DiffUtil.calculateDiff(getDiffCallback(mList, contentList), true))
                         .subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
                         .subscribe(diffResult -> {
                             // 将计算到的结果刷新到布局
