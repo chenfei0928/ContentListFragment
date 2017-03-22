@@ -20,7 +20,7 @@ import com.chenfei.contentlistfragment.library.LazyLoadFragment;
 public class ListStateView extends FrameLayout implements LazyLoadFragment.StateView {
     private TextView mNetworkError;
     private TextView mEmpty;
-    private LazyLoadFragment.OnStateViewClickListener mOnStateViewClickListener;
+    private OnStateViewClickListener mOnStateViewClickListener;
 
     public ListStateView(Context context) {
         super(context);
@@ -53,8 +53,7 @@ public class ListStateView extends FrameLayout implements LazyLoadFragment.State
         mEmpty.setVisibility(View.GONE);
     }
 
-    @Override
-    public void setOnStateViewClickListener(LazyLoadFragment.OnStateViewClickListener onStateViewClickListener) {
+    public void setOnStateViewClickListener(OnStateViewClickListener onStateViewClickListener) {
         mOnStateViewClickListener = onStateViewClickListener;
         if (mOnStateViewClickListener == null) {
             setClickable(false);
@@ -72,17 +71,14 @@ public class ListStateView extends FrameLayout implements LazyLoadFragment.State
         }
     }
 
-    @Override
     public void setEmptyHint(@DrawableRes int drawable, @StringRes int string) {
         setEmptyHint(drawable, getContext().getString(string));
     }
 
-    @Override
     public void setNetworkErrorHint(@DrawableRes int drawable, @StringRes int string) {
         setNetworkErrorHint(drawable, getContext().getString(string));
     }
 
-    @Override
     public void setEmptyHint(@DrawableRes int drawable, CharSequence string) {
         mEmpty.setCompoundDrawablesWithIntrinsicBounds(0, drawable, 0, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -91,7 +87,6 @@ public class ListStateView extends FrameLayout implements LazyLoadFragment.State
         mEmpty.setText(string);
     }
 
-    @Override
     public void setNetworkErrorHint(@DrawableRes int drawable, CharSequence string) {
         mNetworkError.setCompoundDrawablesWithIntrinsicBounds(0, drawable, 0, 0);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -110,5 +105,12 @@ public class ListStateView extends FrameLayout implements LazyLoadFragment.State
     public void onEmptyContent() {
         mNetworkError.setVisibility(View.GONE);
         mEmpty.setVisibility(View.VISIBLE);
+    }
+
+    public static interface OnStateViewClickListener {
+
+        void onEmptyContentClick();
+
+        void onNetWorkErrorClick();
     }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chenfei.GithubApi;
+import com.chenfei.ListStateView;
 import com.chenfei.User;
 import com.chenfei.basefragment.RxJavaUtil;
 import com.chenfei.contentlistfragment.library.BaseContentListFragment;
@@ -78,8 +79,9 @@ public class MainActivity extends FragmentContentActivity<MainActivity.Fragment>
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            mStateView.setEmptyHint(0, "Empty");
-            mStateView.setNetworkErrorHint(0, "Network Error");
+            ListStateView stateView = (ListStateView) mStateView;
+            stateView.setEmptyHint(0, "Empty");
+            stateView.setNetworkErrorHint(0, "Network Error");
         }
 
         @Override
@@ -130,9 +132,10 @@ public class MainActivity extends FragmentContentActivity<MainActivity.Fragment>
             return config
                     .withPageSize(sPageSize)
                     .withWhatToLoadMore(3)
+                    .withStateViewId(R.layout.list_state_view)
                     .withWhenToRequest(LazyLoadFragment.Config.ON_START)
                     .withOnNetRefreshLoadRemoveOldData(true)
-                    .withEmptyContentClickBack(false);
+                    .withEmptyContentClickRefresh(false);
         }
     }
 }
