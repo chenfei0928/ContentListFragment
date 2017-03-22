@@ -33,8 +33,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
 
     @Override
     Config createConfigInternal() {
-        return new Config()
-                .withStateViewClickListener(new BaseOnStateViewClickListener());
+        return new Config();
     }
 
     @NonNull

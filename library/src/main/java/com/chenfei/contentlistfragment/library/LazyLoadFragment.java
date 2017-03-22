@@ -3,12 +3,10 @@ package com.chenfei.contentlistfragment.library;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.CallSuper;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
-import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +46,7 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
 
     @SuppressWarnings("unchecked")
     Cfg createConfigInternal() {
-        return (Cfg) new Config()
-                .withStateViewClickListener(new BaseOnStateViewClickListener());
+        return (Cfg) new Config();
     }
 
     @Override
@@ -77,7 +74,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         if (getConfig().stateViewId != 0) {
             View view = LayoutInflater.from(getContext()).inflate(getConfig().stateViewId, mRootView, false);
             stateView = (StateView) view;
-            stateView.setOnStateViewClickListener(getConfig().stateViewClickListener);
             mRootView.addView(view, 0);
         }
         mRefresh.setEnabled(getConfig().enableRefresh);
@@ -189,21 +185,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         }
     }
 
-    protected class BaseOnStateViewClickListener implements OnStateViewClickListener {
-        @Override
-        public void onNetWorkErrorClick() {
-            requestList(true);
-        }
-
-        @Override
-        public void onEmptyContentClick() {
-            if (getConfig().emptyContentClickBack) {
-                getActivity().finish();
-            } else {
-                requestList(true);
-            }
-        }
-    }
 
     /**
      * 状态标识View需实现接口
@@ -216,25 +197,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         void onEmptyContent();
 
         void onNetworkError();
-
-        void setOnStateViewClickListener(OnStateViewClickListener listener);
-
-        void setEmptyHint(@DrawableRes int drawable, @StringRes int string);
-
-        void setNetworkErrorHint(@DrawableRes int drawable, @StringRes int string);
-
-        void setEmptyHint(@DrawableRes int drawable, CharSequence string);
-
-        void setNetworkErrorHint(@DrawableRes int drawable, CharSequence string);
-    }
-
-    /**
-     * 状态标识View的点击监听器
-     */
-    public interface OnStateViewClickListener {
-        void onNetWorkErrorClick();
-
-        void onEmptyContentClick();
     }
 
     /**
@@ -250,7 +212,7 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         public static final String VISIBLE = "setUserVisibleHint";
 
         boolean enableRefresh = true;
-        boolean emptyContentClickBack = true;
+        boolean emptyContentClickRefresh = true;
         /**
          * 什么时候刷新数据
          */
@@ -263,9 +225,8 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         @Config.WhenToAsk
         String whenToRefresh = NONE;
 
-        OnStateViewClickListener stateViewClickListener;
         @LayoutRes
-        int stateViewId = R.layout.list_state_view;
+        int stateViewId = 0;
 
         @StringDef({ON_RESUME, ON_START, VISIBLE, NONE})
         @Retention(RetentionPolicy.SOURCE)
@@ -277,8 +238,8 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
             return (T) this;
         }
 
-        public final T withEmptyContentClickBack(boolean emptyContentClickBack) {
-            this.emptyContentClickBack = emptyContentClickBack;
+        public final T withEmptyContentClickRefresh(boolean emptyContentClickBack) {
+            this.emptyContentClickRefresh = emptyContentClickBack;
             return (T) this;
         }
 
@@ -295,11 +256,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
          */
         public final T withWhenToRefresh(@WhenToAsk String whenToRefresh) {
             this.whenToRefresh = whenToRefresh;
-            return (T) this;
-        }
-
-        public final T withStateViewClickListener(OnStateViewClickListener stateView) {
-            this.stateViewClickListener = stateView;
             return (T) this;
         }
 

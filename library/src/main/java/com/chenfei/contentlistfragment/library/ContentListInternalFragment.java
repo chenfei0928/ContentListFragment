@@ -177,7 +177,7 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
         if (mStateView == null)
             return;
         mDataObserver = new RecyclerViewAdapterDataObserver(
-                getConfig().emptyContentClickBack ? mRefresh : null,
+                getConfig().emptyContentClickRefresh ? mRefresh : null,
                 mRecycler, mStateView);
         mAdapter.registerAdapterDataObserver(mDataObserver);
     }
@@ -211,7 +211,7 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
             mRecycler.setVisibility(View.GONE);
             mStateView.setVisibility(View.VISIBLE);
             // 如果需要点击空内容时返回上一页，设置RefreshLayout不可用
-            if (getConfig().emptyContentClickBack) {
+            if (getConfig().emptyContentClickRefresh) {
                 mRefresh.setEnabled(false);
             }
         } else {
