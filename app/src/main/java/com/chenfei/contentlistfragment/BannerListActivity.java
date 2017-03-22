@@ -20,9 +20,9 @@ import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.SingleSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class BannerListActivity extends FragmentContentActivity<BannerListActivity.Fragment> {
     private static final String TAG = "ListActivity";
@@ -47,7 +47,7 @@ public class BannerListActivity extends FragmentContentActivity<BannerListActivi
         }
 
         @Override
-        protected void requestListImpl(boolean isRefresh, SingleSource<Boolean> takeUntil) {
+        protected void requestListImpl(boolean isRefresh, Observable<Boolean> takeUntil) {
             String keyword;
             int page = getPage(mList.size(), sPageSize);
             if (isRefresh) {
