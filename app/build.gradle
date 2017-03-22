@@ -14,6 +14,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        // debug测试运行、包
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -51,9 +55,12 @@ dependencies {
     // 著名的OkHttp及其相关工具库，配合RxJava响应式编程，可大幅减少代码缩进
     // https://github.com/square/okhttp
     compile "com.squareup.okhttp3:okhttp:${okhttp_version}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
     // https://github.com/square/retrofit
     compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
 
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
 }
