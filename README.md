@@ -36,4 +36,9 @@ public class RxJavaUtil {
 }
  ````
 
-4. 详情可参考demo
+4. 使你的NetResult类实现接口`BaseResult`
+
+使你的NetResult类实现接口`com.chenfei.contentlistfragment.util.BaseResult`，以获取返回值
+网络请求的错误（包括resultCode）请在RxJava中通过filter过滤器抛出异常到error处理中
+
+5. 详情可参考demo
