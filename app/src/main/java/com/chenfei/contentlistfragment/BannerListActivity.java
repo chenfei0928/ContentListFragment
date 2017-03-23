@@ -40,6 +40,9 @@ public class BannerListActivity extends FragmentContentActivity<BannerListActivi
 
         @Override
         public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            // 此处会匹配到支持库provided依赖中的父类和demo工程的父类
+            // 所以会被ide警告，但支持库provided依赖的父类不会被打包进apk，在此忽略
+            // 在使用gradle依赖时不会报错
             super.onViewCreated(view, savedInstanceState);
             ListStateView stateView = (ListStateView) mStateView;
             stateView.setEmptyHint(0, "Empty");
