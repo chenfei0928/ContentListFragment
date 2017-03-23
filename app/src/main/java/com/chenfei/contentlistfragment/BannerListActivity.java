@@ -120,7 +120,7 @@ public class BannerListActivity extends FragmentContentActivity<BannerListActivi
                 @Override
                 public void onBindViewHolder(UserAdapter.ViewHolder holder, int position) {
                     if (holder.getItemViewType() == USER) {
-                        User user = mList.get(position);
+                        User user = mList.get(position - 1);
                         holder.name.setText(user.getLogin());
                         Glide.with(holder.itemView.getContext())
                                 .load(user.getAvatar_url())
