@@ -7,3 +7,4 @@ captures
 .gitignore
 gradle
 .gradle
+upload.bat
