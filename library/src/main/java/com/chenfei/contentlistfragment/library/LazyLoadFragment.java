@@ -75,9 +75,13 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
             View view = LayoutInflater.from(getContext()).inflate(getConfig().stateViewId, mRootView, false);
             stateView = (StateView) view;
             mRootView.addView(view, 0);
+            configStateView(view);
         }
         mRefresh.setEnabled(getConfig().enableRefresh);
         return stateView;
+    }
+
+    protected void configStateView(View stateView) {
     }
 
     @Override
