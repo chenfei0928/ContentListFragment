@@ -216,7 +216,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         public static final String VISIBLE = "setUserVisibleHint";
 
         boolean enableRefresh = true;
-        boolean emptyContentClickRefresh = true;
         /**
          * 什么时候刷新数据
          */
@@ -239,11 +238,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
 
         public final T withEnableRefresh(boolean enableRefresh) {
             this.enableRefresh = enableRefresh;
-            return (T) this;
-        }
-
-        public final T withEmptyContentClickRefresh(boolean emptyContentClickBack) {
-            this.emptyContentClickRefresh = emptyContentClickBack;
             return (T) this;
         }
 

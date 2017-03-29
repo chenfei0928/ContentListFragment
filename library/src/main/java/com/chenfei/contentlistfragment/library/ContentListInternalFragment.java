@@ -247,18 +247,18 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
     }
 
     protected static class Config<T extends ContentListInternalFragment.Config> extends LazyLoadFragment.Config<T> {
-        boolean enableLoadMore = true;
         int whatToLoadMore = 5;
-
-        @SuppressWarnings("unchecked")
-        public final T withEnableLoadMore(boolean enableLoadMore) {
-            this.enableLoadMore = enableLoadMore;
-            return (T) this;
-        }
+        boolean emptyContentClickRefresh = true;
 
         @SuppressWarnings("unchecked")
         public final T withWhatToLoadMore(int offset) {
             this.whatToLoadMore = offset;
+            return (T) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public final T withEmptyContentClickRefresh(boolean emptyContentClickBack) {
+            this.emptyContentClickRefresh = emptyContentClickBack;
             return (T) this;
         }
     }

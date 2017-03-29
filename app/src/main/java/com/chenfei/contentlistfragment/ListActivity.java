@@ -1,6 +1,5 @@
 package com.chenfei.contentlistfragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
@@ -34,14 +33,6 @@ public class ListActivity extends FragmentContentActivity<ListActivity.Fragment>
     public static class Fragment extends BaseContentListFragment<User> {
         private final int sPageSize = 10;
         private int mCurrent = -1;
-
-        @Override
-        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-            ListStateView stateView = (ListStateView) mStateView;
-            stateView.setEmptyHint(0, "Empty");
-            stateView.setNetworkErrorHint(0, "Network Error");
-        }
 
         @Override
         protected void requestListImpl(@Nullable Integer refresh, @Nullable Integer offset, int page,
@@ -95,6 +86,13 @@ public class ListActivity extends FragmentContentActivity<ListActivity.Fragment>
                     .withWhenToRequest(LazyLoadFragment.Config.ON_START)
                     .withOnNetRefreshLoadRemoveOldData(true)
                     .withEmptyContentClickRefresh(false);
+        }
+
+        @Override
+        protected void configStateView(View stateView) {
+            ListStateView view = (ListStateView) stateView;
+            view.setEmptyHint(0, "Empty");
+            view.setNetworkErrorHint(0, "Network Error");
         }
     }
 }

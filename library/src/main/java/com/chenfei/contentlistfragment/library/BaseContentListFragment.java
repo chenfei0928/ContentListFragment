@@ -259,6 +259,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
         // 刷新时清空列表，设置 true 后刷新请求时传入的page总会为1
         boolean onNetRefreshLoadRemoveOldData = false;
         boolean optimizationDataSetChange = true;
+        boolean enableLoadMore = true;
 
         public final Config withPageSize(int pageSize) {
             this.pageSize = pageSize;
@@ -272,6 +273,11 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
 
         public final Config withOptimizationDataSetChange(boolean calculateDataSetChange) {
             this.optimizationDataSetChange = calculateDataSetChange;
+            return this;
+        }
+
+        public final Config withEnableLoadMore(boolean enableLoadMore) {
+            this.enableLoadMore = enableLoadMore;
             return this;
         }
     }
