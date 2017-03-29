@@ -102,6 +102,16 @@ public class ListStateView extends FrameLayout implements LazyLoadFragment.State
     }
 
     @Override
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hide() {
+        setVisibility(GONE);
+    }
+
+    @Override
     public void onEmptyContent() {
         mNetworkError.setVisibility(View.GONE);
         mEmpty.setVisibility(View.VISIBLE);
