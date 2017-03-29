@@ -1,11 +1,10 @@
-package com.chenfei.basefragment;
+package com.chenfei.base;
 
 import android.util.Log;
 
 import java.util.Locale;
 
 import rx.functions.Action1;
-import rx.functions.Actions;
 
 /**
  * User: ChenFei(chenfei0928@gmail.com)
@@ -16,13 +15,9 @@ public class RxJavaUtil {
     private static final String TAG = "RxJavaUtil";
 
     public static Action1<Throwable> onError() {
-        if (!BuildConfig.DEBUG)
-            return Actions.empty();
         String strings = generateTags(4);
         return throwable -> {
-            if (BuildConfig.DEBUG) {
-                Log.w(TAG, strings + "\ndefaultOnErrorHandler: ", throwable);
-            }
+            Log.w(TAG, strings + "\ndefaultOnErrorHandler: ", throwable);
         };
     }
 
@@ -37,5 +32,20 @@ public class RxJavaUtil {
         return String.format(Locale.getDefault(), "%s.%s(%s:%d)",
                 callerClazzName, caller.getMethodName(),
                 caller.getFileName(), caller.getLineNumber());
+    }
+
+    /**
+     * 打印当前方法调用堆栈，打印到 ActivityThread.main() 根节点为止
+     */
+    public static void printStackTrace(String tag) {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StringBuilder sb = new StringBuilder("printStackTrace:");
+        for (int i = 3; i < stackTrace.length; i++) {
+            if ("android.app.ActivityThread".equals(stackTrace[i].getClassName())
+                    && "main".equals(stackTrace[i].getMethodName()))
+                break;
+            sb.append('\n').append(stackTrace[i].toString());
+        }
+        Log.v(tag, sb.toString());
     }
 }

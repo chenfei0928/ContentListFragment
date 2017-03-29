@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.chenfei.basefragment.BaseFragment;
+import com.chenfei.base.fragment.BaseFragment;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -210,6 +210,8 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         public static final String ON_RESUME = "onResume";
         public static final String ON_START = "onStart";
         public static final String VISIBLE = "setUserVisibleHint";
+        @LayoutRes
+        public static int sDefaultStateViewId = 0;
 
         boolean enableRefresh = true;
         boolean emptyContentClickRefresh = true;
@@ -226,7 +228,7 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         String whenToRefresh = NONE;
 
         @LayoutRes
-        int stateViewId = 0;
+        int stateViewId = sDefaultStateViewId;
 
         @StringDef({ON_RESUME, ON_START, VISIBLE, NONE})
         @Retention(RetentionPolicy.SOURCE)

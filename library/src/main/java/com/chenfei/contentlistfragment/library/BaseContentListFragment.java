@@ -10,7 +10,7 @@ import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.chenfei.basefragment.RxJavaUtil;
+import com.chenfei.base.RxJavaUtil;
 import com.chenfei.contentlistfragment.util.BaseResult;
 import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 

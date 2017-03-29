@@ -1,4 +1,4 @@
-package com.chenfei.basefragment;
+package com.chenfei.base;
 
 import org.junit.Test;
 

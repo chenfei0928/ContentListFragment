@@ -1,4 +1,4 @@
-package com.chenfei.basefragment;
+package com.chenfei.base;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.chenfei.basefragment;
+package com.chenfei.base.fragment;
 
 import android.support.v4.app.Fragment;
 
