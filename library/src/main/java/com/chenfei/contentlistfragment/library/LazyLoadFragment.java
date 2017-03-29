@@ -190,9 +190,9 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
      * 状态标识View需实现接口
      */
     public interface StateView {
-        int getVisibility();
+        void show();
 
-        void setVisibility(int visibility);
+        void hide();
 
         void onEmptyContent();
 
@@ -210,8 +210,6 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         public static final String ON_RESUME = "onResume";
         public static final String ON_START = "onStart";
         public static final String VISIBLE = "setUserVisibleHint";
-        @LayoutRes
-        public static int sDefaultStateViewId = 0;
 
         boolean enableRefresh = true;
         boolean emptyContentClickRefresh = true;
@@ -228,7 +226,7 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         String whenToRefresh = NONE;
 
         @LayoutRes
-        int stateViewId = sDefaultStateViewId;
+        int stateViewId = DefaultConfig.sStateViewId;
 
         @StringDef({ON_RESUME, ON_START, VISIBLE, NONE})
         @Retention(RetentionPolicy.SOURCE)
@@ -265,5 +263,10 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
             this.stateViewId = stateViewId;
             return (T) this;
         }
+    }
+
+    public static final class DefaultConfig {
+        @LayoutRes
+        public static int sStateViewId = 0;
     }
 }

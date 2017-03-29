@@ -204,19 +204,19 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
             // 如果第一次加载加载失败，则告诉用户网络错误
             mStateView.onNetworkError();
             mRecycler.setVisibility(View.GONE);
-            mStateView.setVisibility(View.VISIBLE);
+            mStateView.show();
         } else if (mAdapter.getItemCount() == 0) {
             // 如果不是第一次加载时候加载失败，或者适配器内容被清空，则告诉用户空内容
             mStateView.onEmptyContent();
             mRecycler.setVisibility(View.GONE);
-            mStateView.setVisibility(View.VISIBLE);
+            mStateView.show();
             // 如果需要点击空内容时返回上一页，设置RefreshLayout不可用
             if (getConfig().emptyContentClickRefresh) {
                 mRefresh.setEnabled(false);
             }
         } else {
             mRecycler.setVisibility(View.VISIBLE);
-            mStateView.setVisibility(View.GONE);
+            mStateView.hide();
         }
     }
 

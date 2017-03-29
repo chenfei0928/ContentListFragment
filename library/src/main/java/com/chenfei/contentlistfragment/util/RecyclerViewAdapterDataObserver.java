@@ -61,9 +61,9 @@ public class RecyclerViewAdapterDataObserver extends RecyclerView.AdapterDataObs
         mRecyclerView.setVisibility(emptyContent ? View.GONE : View.VISIBLE);
         if (emptyContent) {
             mEmptyView.onEmptyContent();
-            mEmptyView.setVisibility(View.VISIBLE);
+            mEmptyView.show();
         } else {
-            mEmptyView.setVisibility(View.GONE);
+            mEmptyView.hide();
         }
         // 如果空内容，设置刷新布局为不可用
         if (mSwipeRefreshLayout != null)
