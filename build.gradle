@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.1'
 
         // 使用 Java8 的 Lambda 表达式
         // https://github.com/evant/gradle-retrolambda
