@@ -42,26 +42,25 @@ dependencies {
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'jsr305'
     })
     testCompile 'junit:junit:4.12'
 
     compile "com.android.support:appcompat-v7:${rootProject.ext.support_version}"
     compile "com.android.support:support-fragment:${rootProject.ext.support_version}"
     // RxJava 响应式编程 https://github.com/ReactiveX/RxAndroid
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.7'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+    // Rx生命周期，用于协调Activity生命周期变化取消订阅
     // https://github.com/trello/RxLifecycle
-    compile("com.trello:rxlifecycle-components:${rxLifecycle_version}") {
-        exclude module: 'jsr305'
-//        exclude module: 'rxbinding'
-    }
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:2.0.1"
     // 著名的OkHttp及其相关工具库，配合RxJava响应式编程，可大幅减少代码缩进
     // https://github.com/square/okhttp
     compile "com.squareup.okhttp3:okhttp:${okhttp_version}"
     compile "com.squareup.okhttp3:logging-interceptor:${okhttp_version}"
     // https://github.com/square/retrofit
     compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
 
     compile 'com.github.bumptech.glide:glide:3.7.0'

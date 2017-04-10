@@ -12,11 +12,10 @@ import android.view.ViewGroup;
 import com.chenfei.contentlistfragment.util.RecyclerViewAdapterDataObserver;
 import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.subjects.PublishSubject;
-import rx.subjects.SerializedSubject;
-import rx.subjects.Subject;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 
 /**
  * 用于首页之类上方需要显示轮播图的Fragment页
@@ -24,7 +23,7 @@ import rx.subjects.Subject;
  */
 abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragment.Config> extends LazyLoadFragment<Cfg> {
     private static final String TAG = "KW_ContentListFragment";
-    final Subject<Boolean, Boolean> mRefreshEventBus = new SerializedSubject<>(PublishSubject.create());
+    final Subject<Boolean> mRefreshEventBus = PublishSubject.create();
     @Nullable
     private RecyclerView mRecycler;
     @Nullable
@@ -166,10 +165,10 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
     @Override
     protected final void requestListImpl(boolean isRefresh) {
         mRefreshEventBus.onNext(isRefresh);
-        requestListImpl(isRefresh, mRefreshEventBus.asObservable().distinctUntilChanged().first());
+        requestListImpl(isRefresh, mRefreshEventBus.hide().distinctUntilChanged().firstElement().toSingle());
     }
 
-    protected abstract void requestListImpl(boolean isRefresh, Observable<Boolean> takeUntil);
+    protected abstract void requestListImpl(boolean isRefresh, SingleSource<Boolean> takeUntil);
 
     private void observerAdapterData() {
         if (mAdapter == null)
@@ -228,7 +227,7 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
         }
     }
 
-    protected final Action1<Throwable> error = throwable -> {
+    protected final Consumer<Throwable> error = throwable -> {
         if (BuildConfig.DEBUG) {
             Log.w(TAG, ContentListInternalFragment.this.getClass().getSimpleName() + " : ", throwable);
         }

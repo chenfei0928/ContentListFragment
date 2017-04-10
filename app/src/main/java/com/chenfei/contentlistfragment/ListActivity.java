@@ -16,10 +16,10 @@ import com.chenfei.contentlistfragment.util.BaseResult;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.SingleSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class ListActivity extends FragmentContentActivity<ListActivity.Fragment> {
     private static final String TAG = "ListActivity";
@@ -36,9 +36,9 @@ public class ListActivity extends FragmentContentActivity<ListActivity.Fragment>
 
         @Override
         protected void requestListImpl(@Nullable Integer refresh, @Nullable Integer offset, int page,
-                                       Observable<Boolean> takeUntil,
-                                       Action1<BaseResult<List<User>>> success,
-                                       Action1<Throwable> error) {
+                                       SingleSource<Boolean> takeUntil,
+                                       Consumer<BaseResult<List<User>>> success,
+                                       Consumer<Throwable> error) {
             String keyword;
             if (page == 1) {
                 keyword = GithubApi.keywords[++mCurrent % GithubApi.keywords.length];

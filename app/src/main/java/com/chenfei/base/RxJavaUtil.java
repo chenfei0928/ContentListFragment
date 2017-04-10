@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 /**
  * User: ChenFei(chenfei0928@gmail.com)
@@ -14,7 +14,7 @@ import rx.functions.Action1;
 public class RxJavaUtil {
     private static final String TAG = "RxJavaUtil";
 
-    public static Action1<Throwable> onError() {
+    public static Consumer<Throwable> onError() {
         String strings = generateTags(4);
         return throwable -> {
             Log.w(TAG, strings + "\ndefaultOnErrorHandler: ", throwable);

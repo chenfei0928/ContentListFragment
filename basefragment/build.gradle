@@ -39,6 +39,6 @@ dependencies {
 
     compile "com.android.support:support-fragment:${rootProject.ext.support_version}"
     // RxJava 响应式编程 https://github.com/ReactiveX/RxAndroid
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.7'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
 }
