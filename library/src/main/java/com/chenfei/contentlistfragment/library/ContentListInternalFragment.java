@@ -221,10 +221,13 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
     }
 
     protected final void regScrollLoadMore(boolean reg) {
+        RecyclerView recyclerView = getRecyclerView();
+        if (recyclerView == null)
+            return;
         RecyclerViewScrollLoadMoreListener loadMoreListener = getLoadMoreListener();
-        getRecyclerView().removeOnScrollListener(loadMoreListener);
+        recyclerView.removeOnScrollListener(loadMoreListener);
         if (reg) {
-            getRecyclerView().addOnScrollListener(loadMoreListener);
+            recyclerView.addOnScrollListener(loadMoreListener);
         }
     }
 
