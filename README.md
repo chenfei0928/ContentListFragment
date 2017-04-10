@@ -15,7 +15,7 @@
 [ ![Download](https://api.bintray.com/packages/chenfei/maven/ContentListFragment/images/download.svg) ](https://bintray.com/chenfei/maven/ContentListFragment/_latestVersion)
 1. 导入依赖
 ```` gradle
-compile 'com.chenfei:ContentListFragment:1.0.1@aar'
+compile 'com.chenfei:ContentListFragment2:1.0.1@aar'
 ````
 
 2. 设置基类
@@ -31,7 +31,7 @@ compile 'com.chenfei:ContentListFragment:1.0.1@aar'
  ````java
 package com.chenfei.base;
 public class RxJavaUtil {
-    public static rx.functions.Action1<Throwable> onError() {
+    public static io.reactivex.functions.Consumer<Throwable> onError() {
     }
 }
  ````
