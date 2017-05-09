@@ -16,7 +16,7 @@ import com.chenfei.contentlistfragment.util.BaseResult;
 
 import java.util.List;
 
-import io.reactivex.SingleSource;
+import io.reactivex.MaybeSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -36,7 +36,7 @@ public class ListActivity extends FragmentContentActivity<ListActivity.Fragment>
 
         @Override
         protected void requestListImpl(@Nullable Integer refresh, @Nullable Integer offset, int page,
-                                       SingleSource<Boolean> takeUntil,
+                                       MaybeSource<Boolean> takeUntil,
                                        Consumer<BaseResult<List<User>>> success,
                                        Consumer<Throwable> error) {
             String keyword;

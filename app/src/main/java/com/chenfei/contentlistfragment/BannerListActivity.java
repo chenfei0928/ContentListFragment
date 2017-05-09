@@ -18,7 +18,7 @@ import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.SingleSource;
+import io.reactivex.MaybeSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -37,7 +37,7 @@ public class BannerListActivity extends FragmentContentActivity<BannerListActivi
         private final List<User> mList = new ArrayList<>();
 
         @Override
-        protected void requestListImpl(boolean isRefresh, SingleSource<Boolean> takeUntil) {
+        protected void requestListImpl(boolean isRefresh, MaybeSource<Boolean> takeUntil) {
             String keyword;
             int page = getPage(mList.size(), sPageSize);
             if (isRefresh) {

@@ -17,8 +17,8 @@ import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.MaybeSource;
 import io.reactivex.Observable;
-import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -52,7 +52,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
      * 请求视频列表，第一次加载和刷新时传入true
      */
     @Override
-    protected final void requestListImpl(boolean isRefresh, SingleSource<Boolean> operationChangedEvent) {
+    protected final void requestListImpl(boolean isRefresh, MaybeSource<Boolean> operationChangedEvent) {
         Integer refresh = null;
         Integer offset = null;
         int page = 1; // 服务端为php，页码1和0一个效果
@@ -90,7 +90,7 @@ public abstract class BaseContentListFragment<Bean> extends ContentListInternalF
      * @param error     失败时的回调
      */
     protected abstract void requestListImpl(@Nullable Integer refresh, @Nullable Integer offset, int page,
-                                            SingleSource<Boolean> takeUntil, Consumer<BaseResult<List<Bean>>> success,
+                                            MaybeSource<Boolean> takeUntil, Consumer<BaseResult<List<Bean>>> success,
                                             Consumer<Throwable> error);
 
     private RecyclerView.Adapter createAdapterInternal(List<Bean> list) {

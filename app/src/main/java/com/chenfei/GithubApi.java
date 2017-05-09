@@ -2,7 +2,7 @@ package com.chenfei;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Maybe;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -54,5 +54,5 @@ public interface GithubApi {
             .create(GithubApi.class);
 
     @GET("search/users")
-    Single<NetResult<List<User>>> searchUser(@Query("q") String keyword, @Query("page") int page, @Query("per_page") int per_page);
+    Maybe<NetResult<List<User>>> searchUser(@Query("q") String keyword, @Query("page") int page, @Query("per_page") int per_page);
 }
