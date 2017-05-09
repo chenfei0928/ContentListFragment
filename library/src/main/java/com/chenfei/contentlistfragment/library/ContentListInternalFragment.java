@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.chenfei.contentlistfragment.util.RecyclerViewAdapterDataObserver;
 import com.chenfei.contentlistfragment.util.RecyclerViewScrollLoadMoreListener;
 
-import io.reactivex.MaybeSource;
+import io.reactivex.SingleSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -165,10 +165,10 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
     @Override
     protected final void requestListImpl(boolean isRefresh) {
         mRefreshEventBus.onNext(isRefresh);
-        requestListImpl(isRefresh, mRefreshEventBus.hide().distinctUntilChanged().firstElement());
+        requestListImpl(isRefresh, mRefreshEventBus.hide().distinctUntilChanged().firstElement().toSingle());
     }
 
-    protected abstract void requestListImpl(boolean isRefresh, MaybeSource<Boolean> takeUntil);
+    protected abstract void requestListImpl(boolean isRefresh, SingleSource<Boolean> takeUntil);
 
     private void observerAdapterData() {
         if (mAdapter == null)

@@ -15,7 +15,7 @@
 [ ![Download](https://api.bintray.com/packages/chenfei/maven/ContentListFragment/images/download.svg) ](https://bintray.com/chenfei/maven/ContentListFragment/_latestVersion)
 1. 导入依赖
 ```` gradle
-compile 'com.chenfei:ContentListFragment2:1.0.3@aar'
+compile 'com.chenfei:ContentListFragment2:1.0.1@aar'
 ````
 
 2. 设置基类
