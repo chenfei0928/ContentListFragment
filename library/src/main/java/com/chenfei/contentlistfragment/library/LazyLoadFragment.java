@@ -57,14 +57,15 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
         mRootView = (ViewGroup) view.findViewById(R.id.baseList_root);
         mRefresh = (SwipeRefreshLayout) view.findViewById(R.id.baseList_swipe);
         mStateView = initStateView();
-        mRefresh.setOnRefreshListener(() -> {
-            if (getConfig().enableRefresh) {
-                requestList(true);
-            } else {
-                mRefresh.setEnabled(false);
-                mRefresh.setRefreshing(false);
-            }
-        });
+        if (mRefresh != null)
+            mRefresh.setOnRefreshListener(() -> {
+                if (getConfig().enableRefresh) {
+                    requestList(true);
+                } else {
+                    mRefresh.setEnabled(false);
+                    mRefresh.setRefreshing(false);
+                }
+            });
         // 修复部分情况下setUserVisibleHint会在onCreate之前调用的问题
         if (getUserVisibleHint()) {
             checkToRequestData(Cfg.VISIBLE);
@@ -79,7 +80,8 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
             mRootView.addView(view, 0);
             configStateView(view);
         }
-        mRefresh.setEnabled(getConfig().enableRefresh);
+        if (mRefresh != null)
+            mRefresh.setEnabled(getConfig().enableRefresh);
         return stateView;
     }
 
@@ -172,11 +174,13 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
     @CallSuper
     public void requestList(boolean isRefresh) {
         // 如果是手动调用，设置SwipeRefreshLayout为刷新状态
-        if (isRefresh) {
-            mRefresh.setRefreshing(true);
-            mRefresh.getChildAt(1).setVisibility(View.VISIBLE);
-        } else {
-            mRefresh.setRefreshing(false);
+        if (mRefresh != null) {
+            if (isRefresh) {
+                mRefresh.setRefreshing(true);
+                mRefresh.getChildAt(1).setVisibility(View.VISIBLE);
+            } else {
+                mRefresh.setRefreshing(false);
+            }
         }
         requestListImpl(isRefresh);
     }

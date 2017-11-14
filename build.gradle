@@ -3,20 +3,21 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven {
+            // Google Maven Repository
+            url 'https://maven.google.com'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-
-        // 使用 Java8 的 Lambda 表达式
-        // https://github.com/evant/gradle-retrolambda
-        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+        classpath 'com.android.tools.build:gradle:3.0.0'
 
         //https://github.com/dcendents/android-maven-gradle-plugin
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         // https://github.com/bintray/gradle-bintray-plugin
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         // https://github.com/novoda/bintray-release
-        classpath 'com.novoda:bintray-release:0.4.0'
+        classpath 'com.novoda:bintray-release:0.7.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -25,7 +26,15 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+            dirs 'libs', '../aars'
+        }
         jcenter()
+        mavenCentral()
+        maven {
+            // Google Maven Repository
+            url 'https://maven.google.com'
+        }
     }
     tasks.withType(Javadoc) {
         failOnError = false
@@ -38,7 +47,7 @@ allprojects {
 
 ext {
     compileSdkVersion = 25
-    buildToolsVersion = '25.0.2'
+    buildToolsVersion = '26.0.2'
     minSdkVersion = 11
     targetSdkVersion = 25
 

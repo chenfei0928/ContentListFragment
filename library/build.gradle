@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -26,22 +25,18 @@ android {
     }
 }
 
-retrolambda {
-    javaVersion JavaVersion.VERSION_1_6
-}
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testApi 'junit:junit:4.12'
 
-    provided project(':basefragment')
-    compile "com.android.support:recyclerview-v7:${rootProject.ext.support_version}"
-    provided "com.android.support:support-annotations:${rootProject.ext.support_version}"
+    compileOnly project(':basefragment')
+    api "com.android.support:recyclerview-v7:${rootProject.ext.support_version}"
+    compileOnly "com.android.support:support-annotations:${rootProject.ext.support_version}"
     // RxJava 响应式编程 https://github.com/ReactiveX/RxAndroid
-    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
+    api 'io.reactivex.rxjava2:rxjava:2.0.7'
 }
 //添加
 apply plugin: 'com.novoda.bintray-release'
@@ -49,7 +44,7 @@ publish {
     userOrg = 'chenfei'//bintray.com用户名
     groupId = 'com.chenfei'//jcenter上的路径
     artifactId = 'ContentListFragment2'//项目名称
-    publishVersion = '1.0.2'//版本号
+    publishVersion = '1.0.3'//版本号
     desc = 'Android base content list fragment'//描述，不重要
     website = 'https://github.com/chenfei0928/ContentListFragment'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }

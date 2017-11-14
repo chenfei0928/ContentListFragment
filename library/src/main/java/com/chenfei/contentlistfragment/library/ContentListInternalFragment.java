@@ -210,7 +210,7 @@ abstract class ContentListInternalFragment<Cfg extends ContentListInternalFragme
             mRecycler.setVisibility(View.GONE);
             mStateView.show();
             // 如果需要点击空内容时返回上一页，设置RefreshLayout不可用
-            if (getConfig().emptyContentClickRefresh) {
+            if (getConfig().emptyContentClickRefresh && mRefresh != null) {
                 mRefresh.setEnabled(false);
             }
         } else {
