@@ -33,10 +33,12 @@ public abstract class LazyLoadFragment<Cfg extends LazyLoadFragment.Config> exte
 
     private final Runnable mRequestRunner = () -> {
         // 修复偶尔会出现的 100 ms 延时之后view被destroy的问题
-        if (mRefresh == null || !isVisible())
+        if (!isVisible())
             return;
-        mRefresh.setRefreshing(false);
-        mRefresh.setRefreshing(true);
+        if (mRefresh != null) {
+            mRefresh.setRefreshing(false);
+            mRefresh.setRefreshing(true);
+        }
         // 如果是首次请求
         if (mIsFirstRequest) {
             firstRequest();
